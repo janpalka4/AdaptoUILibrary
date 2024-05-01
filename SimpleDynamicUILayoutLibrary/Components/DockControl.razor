@@ -1,0 +1,64 @@
+﻿@inject DragTemp dragTemp
+
+<div class="sdui-dock-control" @ondragenter="OnDragEnter" @ondragleave="OnDragLeave">
+    <div class="sdui-dock-control control">
+        <div class="control-up" @ondrop="() => OnDrop(DockDirection.TOP)" ondragover="event.preventDefault()" @ondragenter="() => OnControlInteracted(DockDirection.TOP,true)" @ondragleave="() => OnControlInteracted(DockDirection.TOP,false)"><WindowIcon /></div>
+        <div class="control-down" @ondrop="() => OnDrop(DockDirection.BOTTOM)" ondragover="event.preventDefault()" @ondragenter="() => OnControlInteracted(DockDirection.BOTTOM,true)" @ondragleave="() => OnControlInteracted(DockDirection.BOTTOM,false)"><WindowIcon /></div>
+        <div class="control-left" @ondrop="() => OnDrop(DockDirection.LEFT)" ondragover="event.preventDefault()" @ondragenter="() => OnControlInteracted(DockDirection.LEFT,true)" @ondragleave="() => OnControlInteracted(DockDirection.LEFT,false)"><WindowIcon /></div>
+        <div class="control-right" @ondrop="() => OnDrop(DockDirection.RIGHT)" ondragover="event.preventDefault()" @ondragenter="() => OnControlInteracted(DockDirection.RIGHT,true)" @ondragleave="() => OnControlInteracted(DockDirection.RIGHT,false)"><WindowIcon /></div>
+        <div class="control-center" @ondrop="() => OnDrop(DockDirection.CENTER)" ondragover="event.preventDefault()" @ondragenter="() => OnControlInteracted(DockDirection.CENTER,true)" @ondragleave="() => OnControlInteracted(DockDirection.CENTER,false)"><WindowIcon /></div>        
+    </div>
+    <div class="control-placeholder-left" style="@(PlaceHolderDisplays[DockDirection.LEFT])"></div>
+    <div class="control-placeholder-right" style="@(PlaceHolderDisplays[DockDirection.RIGHT])"></div>
+    <div class="control-placeholder-top" style="@(PlaceHolderDisplays[DockDirection.TOP])"></div>
+    <div class="control-placeholder-bottom" style="@(PlaceHolderDisplays[DockDirection.BOTTOM])"></div>
+    <div class="control-placeholder-center" style="@(PlaceHolderDisplays[DockDirection.CENTER])"></div>
+</div>
+
+@code {
+    [Parameter]
+    public DockLayout Parent { get; set; }
+    [Parameter]
+    public EventCallback<ContentDroppedEventArgs> OnContentDropped { get; set; }
+
+    private Dictionary<DockDirection, string> PlaceHolderDisplays = new Dictionary<DockDirection, string>() 
+    { 
+        {DockDirection.TOP,DISPLAY_NONE},
+        {DockDirection.BOTTOM,DISPLAY_NONE},
+        {DockDirection.LEFT,DISPLAY_NONE},
+        {DockDirection.RIGHT,DISPLAY_NONE},
+        {DockDirection.CENTER,DISPLAY_NONE}
+    };
+
+    private bool hovered = false;
+    private DockDirection lastHoverDir = DockDirection.CENTER;
+
+    private const string DISPLAY_NONE = "display: none";
+    private const string DISPLAY_UNSET = "display: unset";
+
+    private void OnDragEnter(DragEventArgs e)
+    {
+        Parent.HoverOverControl = true;
+    }
+    private void OnDragLeave(DragEventArgs e)
+    {
+        Parent.HoverOverControl = false;
+    }
+    private async void OnDrop(DockDirection direction)
+    {
+        if (OnContentDropped.HasDelegate)
+            await OnContentDropped.InvokeAsync(new ContentDroppedEventArgs() { DockContent = dragTemp.Item!, DockDirection = direction});
+    }
+
+    private async void OnControlInteracted(DockDirection direction, bool enter)
+    {
+        hovered = enter;
+        lastHoverDir = direction;
+        if (!hovered)
+            await Task.Yield();
+        bool show = hovered && lastHoverDir == direction;
+
+        PlaceHolderDisplays[direction] = show ? DISPLAY_UNSET : DISPLAY_NONE;
+
+    }
+}

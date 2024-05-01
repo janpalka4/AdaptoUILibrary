@@ -1,0 +1,33 @@
+﻿@inject IElementMeasurementService measurementService
+
+<div class="sdui-dock-handle" @onmousedown="OnMouseDown" @onmouseup="OnMouseUp"></div>
+
+@code {
+    [Parameter]
+    public DockLayout Parent { get; set; }
+    [Parameter]
+    public EventCallback<double> OnWeightSet { get; set; }
+
+    private bool dragged { get; set; }
+    private double measure { get; set; }
+
+    private async void OnMouseDown(MouseEventArgs e)
+    {
+        dragged = true;
+        measure = Parent.Model.DockType == DockLayoutType.HORIZONTAL ? await measurementService.GetElementWidth(Parent.Container) : await measurementService.GetElementHeight(Parent.Container);
+    }
+
+    public void OnMouseUp(MouseEventArgs e)
+    {
+        dragged = false;
+    }
+
+    public async void OnMouseMove(MouseEventArgs e)
+    {
+        if (!dragged)
+            return;
+
+            if(OnWeightSet.HasDelegate)
+                await OnWeightSet.InvokeAsync(((Parent.Model.DockType == DockLayoutType.HORIZONTAL ? e.ClientX : e.ClientY) / measure));
+    }
+}

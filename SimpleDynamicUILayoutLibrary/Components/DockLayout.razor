@@ -1,0 +1,110 @@
+﻿@inject IElementMeasurementService elementMeasurementService
+@inject IServiceProvider serviceProvider
+@inject DragTemp dragTemp
+@inject DockContentHelper helper
+@using System.Text
+@using Microsoft.Extensions.DependencyInjection
+
+<div class="@Class" style="@(Style)" @ondragenter="OnDragEnter" @ondragleave="OnDragLeave" @ondrop="OnDrop" @onmousemove="OnMouseMove" @onmouseup="OnMouseUp" ondragover="event.preventDefault()" @ref="Container">
+    @if(Hover && Model.DockType == DockLayoutType.FULL)
+    {
+        <DockControl Parent="this" OnContentDropped="OnContentDropped"/>
+    }
+    @if(Model.DockType == DockLayoutType.FULL)
+    {
+        @if(Model.ChildContent is not null)
+        {
+            <DockContent Model="Model.ChildContent"/>
+        }
+    }
+    else
+    {
+        @if (Model.ChildLayouts.Count > 0)
+        {
+            <DockLayout Model="Model.ChildLayouts[0]" DockPanel="DockPanel" Fraction="Weight"/>
+        }
+        @if (Model.ChildLayouts.Count > 1)
+        {
+            <DockHandle Parent="this" @ref="Handle" OnWeightSet="OnSetWeight"/>
+            <DockLayout Model="Model.ChildLayouts[1]" DockPanel="DockPanel" Fraction="1-Weight"/>
+        }
+    }
+
+</div>
+
+@code {
+    [Parameter]
+    public DockLayoutModel Model { get; set; }
+    [Parameter]
+    public DockPanel DockPanel { get; set; }
+    [Parameter]
+    public double Fraction { get; set; } = 1;
+    public ElementReference Container { get; set; }
+
+    internal bool HoverOverControl { get; set; }
+
+    private string Class { get; set; } = " ";
+    private string Style { get; set; } = " ";
+    private double Weight { get; set; } = 0.5;
+    private bool Hover { get; set; }
+    private DockHandle? Handle { get; set; }
+
+
+    protected override void OnParametersSet()
+    {
+        UpdateClass();
+        base.OnParametersSet();
+    }
+
+    private void OnDragEnter()
+    {
+        Hover = true;
+    }
+    private async void OnDragLeave()
+    {
+        await Task.Delay(5);
+        Hover = HoverOverControl;
+    }
+
+    private void OnDrop()
+    {
+        Hover = false;
+    }
+
+    private void OnContentDropped(ContentDroppedEventArgs e)
+    {
+        Model.AppendChild(e.DockDirection, e.DockContent);
+        DockPanel.CloseContentWindow(e.DockContent.GUID);
+        DockPanel.LayoutHasChanged();
+    }
+
+    private void UpdateClass()
+    {
+        Class = "sdui-dock-layout";
+        if (Model.Parent is null)
+            Class += " sdui-dock-root";
+        if (Model.DockType == DockLayoutType.HORIZONTAL)
+            Class += " horizontal";
+        else if (Model.DockType == DockLayoutType.VERTICAL)
+            Class += " vertical";
+        else if (Model.DockType == DockLayoutType.FULL)
+            Class += " full";
+
+        Style = $"flex: {(int)(Fraction * 1000)};";
+    }
+
+    private void OnMouseMove(MouseEventArgs e)
+    {
+        Handle?.OnMouseMove(e);
+    }
+
+    private void OnSetWeight(double weight)
+    {
+        this.Weight = weight;
+        StateHasChanged();
+    }
+    private void OnMouseUp(MouseEventArgs e)
+    {
+        Handle?.OnMouseUp(e);
+    }
+}

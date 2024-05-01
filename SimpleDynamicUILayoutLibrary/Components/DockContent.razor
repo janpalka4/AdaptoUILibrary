@@ -1,0 +1,48 @@
+﻿@inject DragTemp dragTemp
+
+<div draggable="true" class="@Class" style="@Style" @ondragstart="OnDragStart" @ondragend="OnDragEnd">
+    <DynamicComponent Type="Model.ContentType" Parameters="Model.ContentParameters"/>
+</div>
+
+@code {
+    [Parameter]
+    public DockContentModel Model { get; set; }
+
+    private string Class { get; set; } = " ";
+    private string Style { get; set; } = " ";
+    private bool Dragged { get; set; }
+    private double X { get; set; } = 0;
+    private double Y { get; set; } = 0;
+    private double pageX { get; set; } = 0;
+    private double pageY { get; set; } = 0;
+
+    protected override void OnParametersSet()
+    {
+        SetClass();
+
+        base.OnParametersSet();
+    }
+
+    private void SetClass()
+    {
+        if (!Model.Docked)
+            Class = $"sdui-dock-content-flying{(Dragged ? " dragged" : "")}";
+        else
+            Class = "sdui-dock-content";
+    }
+
+    private void OnDragStart()
+    {
+        Dragged = true;
+        dragTemp.Item = Model;
+        SetClass();
+        StateHasChanged();
+    }
+    private void OnDragEnd(DragEventArgs e)
+    {
+        Dragged = false; 
+        SetClass();
+        Style = $"left: {e.PageX}px; top: {e.PageY}px";
+        StateHasChanged();
+    }
+}

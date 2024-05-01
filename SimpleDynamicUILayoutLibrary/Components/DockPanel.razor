@@ -1,0 +1,38 @@
+﻿@inject DockContentHelper helper
+
+<div style="position: absolute;">
+    @foreach (DockContentModel model in ContentWindows)
+    {
+        <DockContent Model="model" />
+    }
+</div>
+<div style="display: flex; height: 100vh">
+    <DockLayout Model="Root" DockPanel="this"/>
+</div>
+
+@code {
+    public DockLayoutModel Root { get; set; }
+
+    private List<DockContentModel> ContentWindows { get; set; } = new List<DockContentModel>();
+
+    public DockPanel()
+    {
+        Root = new DockLayoutModel(DockLayoutType.FULL, null, new List<DockLayoutModel>(), null);
+    }
+
+    internal void LayoutHasChanged()
+    {
+        StateHasChanged();
+    } 
+
+    public void OpenContentWindow(DockContentModel dockContent)
+    {
+        ContentWindows.Add(dockContent);
+        StateHasChanged();
+    }
+    public void CloseContentWindow(string GUID)
+    {
+        ContentWindows.RemoveAll(x => x.GUID == GUID);
+        StateHasChanged();
+    }
+}

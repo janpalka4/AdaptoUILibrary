@@ -1,0 +1,55 @@
+﻿@page "/"
+@using SimpleDockUILayoutLibrary.Classes
+
+<PageTitle>Home</PageTitle>
+
+@* <DockContent ContentType="typeof(ExampleComponent)"/>
+
+<DockLayout DockType="DockLayoutType.HORIZONTAL" @ref="DockLayout" /> *@
+<DockPanel @ref="DockPanel"/>
+
+@code {
+    private DockPanel DockPanel { get; set; }
+    private DockLayout DockLayout { get; set; }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // DockLayout = DockPanel.DockLayout;
+             DockContentModel dc1 = new DockContentModel() { ContentType = typeof(ExampleComponent) };
+            DockContentModel dc2 = new DockContentModel() { ContentType = typeof(ExampleComponentSecond) };
+             DockContentModel dc3 = new DockContentModel() { ContentType = typeof(ExampleComponentSecond) };
+             DockContentModel dc4 = new DockContentModel() { ContentType = typeof(ExampleComponent) };
+
+            // DockLayoutModel d1 = new DockLayoutModel();
+            // d1.DockType = DockLayoutType.FULL;
+            // d1.ChildContent = dc1;
+
+            // DockLayoutModel d3 = new DockLayoutModel();
+            // d3.DockType = DockLayoutType.FULL;
+            // d3.ChildContent = dc3;
+            // DockLayoutModel d4 = new DockLayoutModel();
+            // d4.DockType = DockLayoutType.FULL;
+            // d4.ChildContent = dc4;
+
+            // DockLayoutModel d2 = new DockLayoutModel();
+            // d2.DockType = DockLayoutType.VERTICAL;
+
+            // d2.ChildLayouts.Add(d3);
+            // d2.ChildLayouts.Add(d4);
+
+
+            // DockLayout.SetChildLayout(d1);
+            // DockLayout.SetChildLayout(d2);
+
+            DockPanel.OpenContentWindow(dc1);
+             DockPanel.OpenContentWindow(dc2);
+            DockPanel.OpenContentWindow(dc3);
+            DockPanel.OpenContentWindow(dc4);
+        }
+
+        base.OnAfterRender(firstRender);
+    }
+
+}

@@ -1,0 +1,207 @@
+﻿* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+}
+
+.sdui-dock-layout {
+    position: relative;
+    display: flex;
+    background: $col-bg-container;
+    border: 1px solid #7A7A7A;
+}
+
+.sdui-dock-layout.sdui-dock-layout.vertical {
+    flex-direction: column;
+}
+
+.sdui-dock-root {
+    height: 100%;
+}
+
+.sdui-dock-layout.horizontal {
+    width: 100%;
+    height: 100%;
+}
+.sdui-dock-layout.horizontal > .sdui-dock-layout:first-child {
+    flex: 1;
+}
+
+.sdui-dock-layout.horizontal > .sdui-dock-layout:last-child {
+    flex: 1;
+}
+
+.sdui-dock-layout.vertical {
+    width: 100%;
+    height: 100%;
+}
+
+.sdui-dock-layout.vertical > .sdui-dock-layout:first-child {
+    width: 100%;
+    flex: 1;
+}
+
+.sdui-dock-layout.vertical > .sdui-dock-layout:last-child {
+    width: 100%;
+    flex: 1;
+}
+
+.sdui-dock-layout.full{
+    width: 100%;
+    height: 100%;
+}
+
+
+.sdui-dock-handle{
+    background-color: red;
+    min-width: 3px;
+    min-height: 3px;
+}
+.sdui-dock-layout > .sdui-dock-handle{
+    display: none;
+}
+.sdui-dock-layout.horizontal > .sdui-dock-handle{
+    display:flex;
+    cursor: col-resize;
+    height: 100%;
+}
+.sdui-dock-layout.vertical > .sdui-dock-handle {
+    display: flex;
+    cursor: row-resize;
+    width: 100%;
+}
+
+.sdui-dock-content-flying {
+    position: absolute;
+    z-index: 10;
+    width: 480px;
+    height: 480px;
+    overflow: scroll;
+    box-shadow: 0px 0px 21px 0px rgba(0,0,0,0.75);
+}
+.sdui-dock-content{
+    /*position: relative;*/                                       
+    width: 100%;
+    height: 100%;
+    overflow: scroll;
+}
+
+.sdui-dock-control {
+    position: absolute;
+    display: grid;
+    grid-template-columns: 1fr 100px 1fr;
+    grid-template-rows: 1fr 100px 1fr;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index:10;
+}
+
+.sdui-dock-control.control{
+    display: grid;
+    grid-column: 2;
+    grid-row: 2;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    width: 100px;
+    height: 100px;
+}
+
+.sdui-dock-control.control > .control-left {
+    padding: 4px;
+    border: 1px solid black;
+    border-right: none;
+    border-radius: 8px 0 0 8px;
+    grid-column: 1;
+    grid-row: 2;
+}
+.sdui-dock-control.control > .control-right {
+    padding: 4px;
+    border: 1px solid black;
+    border-left: none;
+    border-radius: 0 8px 8px 0;
+    grid-column: 3;
+    grid-row: 2;
+}
+.sdui-dock-control.control > .control-up {
+    padding: 4px;
+    border: 1px solid black;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+    grid-column: 2;
+    grid-row: 1;
+}
+.sdui-dock-control.control > .control-down {
+    padding: 4px;
+    border: 1px solid black;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    grid-column: 2;
+    grid-row: 3;
+}
+.sdui-dock-control.control > .control-center {
+    padding: 4px;
+    border: none;
+    border-radius: 0;
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.control-placeholder-left {
+    background-color: cornflowerblue;
+    opacity: 0.5;
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    z-index: 9;
+}
+.control-placeholder-right {
+    background-color: cornflowerblue;
+    opacity: 0.5;
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    z-index: 9;
+}
+.control-placeholder-top {
+    background-color: cornflowerblue;
+    opacity: 0.5;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 2;
+    z-index: 9;
+}
+.control-placeholder-bottom {
+    background-color: cornflowerblue;
+    opacity: 0.5;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 3;
+    grid-row-end: 4;
+    z-index: 9;
+}
+.control-placeholder-center {
+    background-color: cornflowerblue;
+    opacity: 0.5;
+    grid-column-start: 1;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    z-index: 9;
+}
+
+.sdui-dock-full {
+    margin: 0;
+}
+
+body{
+    padding: 0;
+    margin: 0;
+}
