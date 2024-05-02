@@ -2,5 +2,9 @@
   {
     "outputFile": "wwwroot/scss/theme.light.css",
     "inputFile": "wwwroot/scss/theme.light.scss"
+  },
+  {
+    "outputFile": "wwwroot/scss/theme.dark.css",
+    "inputFile": "wwwroot/scss/theme.dark.scss"
   }
 ]

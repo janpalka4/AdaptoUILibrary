@@ -1,0 +1,48 @@
+﻿<div class="sdui-tabs">
+    <div class="sdui-tabs-panel">
+        @foreach(DockContentModel dockContent in Contents)
+        {
+            <div class="@(GetTabButtonClass(dockContent.GUID))" @onclick="() => SelectTab(dockContent.GUID)">
+                @dockContent.Name
+            </div>
+        }
+    </div>
+    <div class="sdui-tab-container">
+        @foreach (DockContentModel dockContent in Contents)
+        {
+            <div class="@(GetTabClass(dockContent.GUID))">
+                <DockContent Model="dockContent" />
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public List<DockContentModel> Contents { get; set; }
+
+    private string selectedGUID { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (string.IsNullOrEmpty(selectedGUID))
+            selectedGUID = Contents[0].GUID;
+        base.OnParametersSet();
+    }
+
+    private string GetTabClass(string guid)
+    {
+        return $"sdui-tab {(guid == selectedGUID ? "selected" : "")}";
+    }
+
+    private string GetTabButtonClass(string guid)
+    {
+        return $"sdui-tab-button {(guid == selectedGUID ? "selected" : "")}";
+    }
+
+    private void SelectTab(string guid)
+    {
+        selectedGUID = guid;
+        StateHasChanged();
+    }
+}

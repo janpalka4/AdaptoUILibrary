@@ -14,7 +14,17 @@
     {
         @if(Model.ChildContent is not null)
         {
-            <DockContent Model="Model.ChildContent"/>
+            @if (Model.ChildContent.Count > 1)
+            {
+                <DockTabs Contents="Model.ChildContent"/>
+            }
+            else
+            {
+                @if (Model.ChildContent.Count > 0)
+                {
+                    <DockContent Model="Model.ChildContent[0]"/>
+                }
+            }
         }
     }
     else
