@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34622.214
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleDockUILayoutLibrary", "SimpleDynamicUILayoutLibrary\SimpleDockUILayoutLibrary.csproj", "{D112767D-1AA8-4080-9E54-883F64FBE411}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaptoUILibrary", "SimpleDynamicUILayoutLibrary\AdaptoUILibrary.csproj", "{D112767D-1AA8-4080-9E54-883F64FBE411}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleDockUILayoutLibraryExapmle.Client", "SimpleDynamicUILayoutLibraryExapmle.Client\SimpleDockUILayoutLibraryExapmle.Client.csproj", "{4C6EB740-4F0C-4602-A412-D2F3C7201705}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdaptoUILibraryExapmle.Client", "SimpleDynamicUILayoutLibraryExapmle.Client\AdaptoUILibraryExapmle.Client.csproj", "{4C6EB740-4F0C-4602-A412-D2F3C7201705}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

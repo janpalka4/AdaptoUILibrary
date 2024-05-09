@@ -1,6 +1,6 @@
 ﻿
 
-namespace SimpleDockUILayoutLibrary.Classes
+namespace AdaptoUILibrary.Classes
 {
     public interface ITabsEventManager
     {

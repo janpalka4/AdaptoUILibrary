@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace SimpleDockUILayoutLibrary.Classes
+namespace AdaptoUILibrary.Classes
 {
     public interface IElementMeasurementService
     {

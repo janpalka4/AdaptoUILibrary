@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SimpleDynamicUILayoutLibrary\SimpleDockUILayoutLibrary.csproj" />
+    <ProjectReference Include="..\SimpleDynamicUILayoutLibrary\AdaptoUILibrary.csproj" />
   </ItemGroup>
 
 </Project>

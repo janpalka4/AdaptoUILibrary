@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using SimpleDockUILayoutLibraryExapmle.Client;
-using SimpleDockUILayoutLibrary.Classes;
+using AdaptoUILibraryExapmle.Client;
+using AdaptoUILibrary.Classes;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");

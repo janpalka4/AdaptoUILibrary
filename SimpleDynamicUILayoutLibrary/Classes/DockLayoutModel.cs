@@ -1,6 +1,6 @@
-﻿using SimpleDockUILayoutLibrary.Enums;
+﻿using AdaptoUILibrary.Enums;
 
-namespace SimpleDockUILayoutLibrary.Classes
+namespace AdaptoUILibrary.Classes
 {
     public class DockLayoutModel
     {

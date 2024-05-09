@@ -193,6 +193,7 @@ body {
   width: 50px;
   top: calc(50% - 25px);
   bottom: calc(50% - 25px);
+  background: white;
 }
 
 .control-root-right {
@@ -203,6 +204,7 @@ body {
   right: 0px;
   top: calc(50% - 25px);
   bottom: calc(50% - 25px);
+  background: white;
 }
 
 .control-root-up {
@@ -213,6 +215,7 @@ body {
   width: 50px;
   left: calc(50% - 25px);
   right: calc(50% - 25px);
+  background: white;
 }
 
 .control-root-down {
@@ -223,6 +226,7 @@ body {
   width: 50px;
   left: calc(50% - 25px);
   right: calc(50% - 25px);
+  background: white;
 }
 
 .control-left > img {

@@ -1,6 +1,6 @@
 ﻿
 
-namespace SimpleDockUILayoutLibrary.Enums
+namespace AdaptoUILibrary.Enums
 {
     public enum DockLayoutType
     {

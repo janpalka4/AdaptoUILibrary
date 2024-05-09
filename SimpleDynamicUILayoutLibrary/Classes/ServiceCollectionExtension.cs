@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace SimpleDockUILayoutLibrary.Classes
+namespace AdaptoUILibrary.Classes
 {
     public static class ServiceCollectionExtension
     {

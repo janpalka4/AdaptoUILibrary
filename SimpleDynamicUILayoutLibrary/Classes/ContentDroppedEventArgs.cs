@@ -1,7 +1,7 @@
-﻿using SimpleDockUILayoutLibrary.Components;
-using SimpleDockUILayoutLibrary.Enums;
+﻿using AdaptoUILibrary.Components;
+using AdaptoUILibrary.Enums;
 
-namespace SimpleDockUILayoutLibrary.Classes
+namespace AdaptoUILibrary.Classes
 {
     public class ContentDroppedEventArgs
     {

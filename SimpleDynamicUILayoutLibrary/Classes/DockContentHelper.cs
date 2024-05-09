@@ -1,8 +1,8 @@
 ﻿
 
-using SimpleDockUILayoutLibrary.Components;
+using AdaptoUILibrary.Components;
 
-namespace SimpleDockUILayoutLibrary.Classes
+namespace AdaptoUILibrary.Classes
 {
     internal class DockContentHelper
     {
