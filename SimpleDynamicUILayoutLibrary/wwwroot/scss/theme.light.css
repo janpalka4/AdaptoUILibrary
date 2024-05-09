@@ -16,6 +16,15 @@ body {
   /*border: 1px solid #79747e /*outline*/
 }
 
+.event-wrapper {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 9;
+}
+
 .sdui-dock-layout.sdui-dock-layout.vertical {
   flex-direction: column;
 }
@@ -112,23 +121,24 @@ body {
 .sdui-dock-control {
   position: absolute;
   display: grid;
-  grid-template-columns: 1fr 100px 1fr;
+  grid-template-columns: 50px 1fr 100px 1fr 50px;
   grid-template-rows: 1fr 100px 1fr;
   top: 0;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 10;
+  z-index: 9;
 }
 
 .sdui-dock-control.control {
   display: grid;
-  grid-column: 2;
+  grid-column: 3;
   grid-row: 2;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   width: 100px;
   height: 100px;
+  z-index: 10;
 }
 
 .sdui-dock-control.control > .control-left {
@@ -137,6 +147,7 @@ body {
   border-right: none;
   grid-column: 1;
   grid-row: 2;
+  z-index: 11;
 }
 
 .sdui-dock-control.control > .control-right {
@@ -145,6 +156,7 @@ body {
   border-left: none;
   grid-column: 3;
   grid-row: 2;
+  z-index: 11;
 }
 
 .sdui-dock-control.control > .control-up {
@@ -161,6 +173,7 @@ body {
   border-top: none;
   grid-column: 2;
   grid-row: 3;
+  z-index: 11;
 }
 
 .sdui-dock-control.control > .control-center {
@@ -169,13 +182,78 @@ body {
   border-radius: 0;
   grid-column: 2;
   grid-row: 2;
+  z-index: 11;
+}
+
+.control-root-left {
+  position: absolute;
+  padding: 4px;
+  z-index: 9;
+  left: 0px;
+  width: 50px;
+  top: calc(50% - 25px);
+  bottom: calc(50% - 25px);
+}
+
+.control-root-right {
+  position: absolute;
+  padding: 4px;
+  z-index: 9;
+  width: 50px;
+  right: 0px;
+  top: calc(50% - 25px);
+  bottom: calc(50% - 25px);
+}
+
+.control-root-up {
+  position: absolute;
+  padding: 4px;
+  z-index: 9;
+  top: 0px;
+  width: 50px;
+  left: calc(50% - 25px);
+  right: calc(50% - 25px);
+}
+
+.control-root-down {
+  position: absolute;
+  padding: 4px;
+  z-index: 9;
+  bottom: 0px;
+  width: 50px;
+  left: calc(50% - 25px);
+  right: calc(50% - 25px);
+}
+
+.control-left > img {
+  max-width: 50px;
+  max-height: 50px;
+  z-index: 9;
+}
+
+.control-right > img {
+  max-width: 50px;
+  max-height: 50px;
+  z-index: 9;
+}
+
+.control-up > img {
+  max-width: 50px;
+  max-height: 50px;
+  z-index: 9;
+}
+
+.control-down > img {
+  max-width: 50px;
+  max-height: 50px;
+  z-index: 9;
 }
 
 .control-placeholder-left {
   background-color: cornflowerblue;
   opacity: 0.5;
   grid-column-start: 1;
-  grid-column-end: 2;
+  grid-column-end: 3;
   grid-row-start: 1;
   grid-row-end: 4;
   z-index: 9;
@@ -184,8 +262,8 @@ body {
 .control-placeholder-right {
   background-color: cornflowerblue;
   opacity: 0.5;
-  grid-column-start: 3;
-  grid-column-end: 4;
+  grid-column-start: 4;
+  grid-column-end: 6;
   grid-row-start: 1;
   grid-row-end: 4;
   z-index: 9;
@@ -195,7 +273,7 @@ body {
   background-color: cornflowerblue;
   opacity: 0.5;
   grid-column-start: 1;
-  grid-column-end: 4;
+  grid-column-end: 6;
   grid-row-start: 1;
   grid-row-end: 2;
   z-index: 9;
@@ -205,7 +283,7 @@ body {
   background-color: cornflowerblue;
   opacity: 0.5;
   grid-column-start: 1;
-  grid-column-end: 4;
+  grid-column-end: 6;
   grid-row-start: 3;
   grid-row-end: 4;
   z-index: 9;
@@ -215,9 +293,9 @@ body {
   background-color: cornflowerblue;
   opacity: 0.5;
   grid-column-start: 1;
-  grid-column-end: 4;
+  grid-column-end: 6;
   grid-row-start: 1;
-  grid-row-end: 4;
+  grid-row-end: 6;
   z-index: 9;
 }
 

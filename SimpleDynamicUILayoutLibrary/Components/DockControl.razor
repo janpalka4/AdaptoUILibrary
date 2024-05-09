@@ -8,6 +8,8 @@
         <div class="control-right" @ondrop="() => OnDrop(DockDirection.RIGHT)" ondragover="event.preventDefault()" @ondragenter="() => OnControlInteracted(DockDirection.RIGHT,true)" @ondragleave="() => OnControlInteracted(DockDirection.RIGHT,false)"><img src="_content/SimpleDockUILayoutLibrary/img/Right.svg" /></div>
         <div class="control-center" @ondrop="() => OnDrop(DockDirection.CENTER)" ondragover="event.preventDefault()" @ondragenter="() => OnControlInteracted(DockDirection.CENTER,true)" @ondragleave="() => OnControlInteracted(DockDirection.CENTER,false)"><img src="_content/SimpleDockUILayoutLibrary/img/Full.svg" /></div>
     </div>
+
+
     <div class="control-placeholder-left" style="@(PlaceHolderDisplays[DockDirection.LEFT])"></div>
     <div class="control-placeholder-right" style="@(PlaceHolderDisplays[DockDirection.RIGHT])"></div>
     <div class="control-placeholder-top" style="@(PlaceHolderDisplays[DockDirection.TOP])"></div>
@@ -21,8 +23,8 @@
     [Parameter]
     public EventCallback<ContentDroppedEventArgs> OnContentDropped { get; set; }
 
-    private Dictionary<DockDirection, string> PlaceHolderDisplays = new Dictionary<DockDirection, string>() 
-    { 
+    private Dictionary<DockDirection, string> PlaceHolderDisplays = new Dictionary<DockDirection, string>()
+    {
         {DockDirection.TOP,DISPLAY_NONE},
         {DockDirection.BOTTOM,DISPLAY_NONE},
         {DockDirection.LEFT,DISPLAY_NONE},
@@ -47,7 +49,7 @@
     private async void OnDrop(DockDirection direction)
     {
         if (OnContentDropped.HasDelegate)
-            await OnContentDropped.InvokeAsync(new ContentDroppedEventArgs() { DockContent = dragTemp.Item!, DockDirection = direction});
+            await OnContentDropped.InvokeAsync(new ContentDroppedEventArgs() { DockContent = dragTemp.Item!, DockDirection = direction });
     }
 
     private async void OnControlInteracted(DockDirection direction, bool enter)

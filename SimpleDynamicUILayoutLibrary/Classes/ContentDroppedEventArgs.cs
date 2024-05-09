@@ -7,5 +7,6 @@ namespace SimpleDockUILayoutLibrary.Classes
     {
         public DockDirection DockDirection { get; set; }
         public DockContentModel DockContent { get; set; }
+        public bool OnRoot { get; set; }
     }
 }

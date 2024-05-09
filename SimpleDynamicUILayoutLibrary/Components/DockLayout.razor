@@ -6,23 +6,29 @@
 @using Microsoft.Extensions.DependencyInjection
 
 <div class="@Class" style="@(Style)" @ondragenter="OnDragEnter" @ondragleave="OnDragLeave" @ondrop="OnDrop" @onmousemove="OnMouseMove" @onmouseup="OnMouseUp" ondragover="event.preventDefault()" @ref="Container">
-    @if(Hover && Model.DockType == DockLayoutType.FULL)
+    
+    @if (Hover && Model.DockType == DockLayoutType.FULL)
     {
-        <DockControl Parent="this" OnContentDropped="OnContentDropped"/>
+        <DockControl Parent="this" OnContentDropped="OnContentDropped" />
     }
-    @if(Model.DockType == DockLayoutType.FULL)
+    else if (Hover && Model.Parent is null)
     {
-        @if(Model.ChildContent is not null)
+        <DockRootControl OnContentDropped="OnContentDropped" />
+    }
+
+    @if (Model.DockType == DockLayoutType.FULL)
+    {
+        @if (Model.ChildContent is not null)
         {
             @if (Model.ChildContent.Count > 1)
             {
-                <DockTabs Contents="Model.ChildContent"/>
+                <DockTabs Contents="Model.ChildContent" />
             }
             else
             {
                 @if (Model.ChildContent.Count > 0)
                 {
-                    <DockContent Model="Model.ChildContent[0]"/>
+                    <DockContent Model="Model.ChildContent[0]" />
                 }
             }
         }
@@ -31,12 +37,12 @@
     {
         @if (Model.ChildLayouts.Count > 0)
         {
-            <DockLayout Model="Model.ChildLayouts[0]" DockPanel="DockPanel" Fraction="Weight"/>
+            <DockLayout Model="Model.ChildLayouts[0]" DockPanel="DockPanel" Fraction="Weight" />
         }
         @if (Model.ChildLayouts.Count > 1)
         {
-            <DockHandle Parent="this" @ref="Handle" OnWeightSet="OnSetWeight"/>
-            <DockLayout Model="Model.ChildLayouts[1]" DockPanel="DockPanel" Fraction="1-Weight"/>
+            <DockHandle Parent="this" @ref="Handle" OnWeightSet="OnSetWeight" />
+            <DockLayout Model="Model.ChildLayouts[1]" DockPanel="DockPanel" Fraction="1-Weight" />
         }
     }
 
@@ -84,6 +90,7 @@
     private void OnContentDropped(ContentDroppedEventArgs e)
     {
         Model.AppendChild(e.DockDirection, e.DockContent);
+
         DockPanel.CloseContentWindow(e.DockContent.GUID);
         DockPanel.LayoutHasChanged();
     }
