@@ -4,7 +4,7 @@ namespace AdaptoUILibrary.Classes
 {
     public static class ServiceCollectionExtension
     {
-        public static void AddSimpleDockLayoutLibrary(this IServiceCollection services)
+        public static void AddAdaptoUILibrary(this IServiceCollection services)
         {
             services.AddScoped<ITabsEventManager, TabsEventManager>();
             services.AddScoped<IElementMeasurementService, ElementMeasurementService>();
