@@ -1,12 +1,15 @@
 ﻿@inject DragTemp dragTemp
+@implements IDisposable
 
-<div draggable="true" class="@Class" style="@Style" @ondragstart="OnDragStart" @ondragend="OnDragEnd">
+<div draggable="@((!dragTemp.IsWeightBeingResized).ToString())" class="@Class" style="@Style" @ondragstart="OnDragStart" @ondragend="OnDragEnd">
     <DynamicComponent Type="Model.ContentType" Parameters="Model.ContentParameters"/>
 </div>
 
 @code {
     [Parameter]
     public DockContentModel Model { get; set; }
+    [Parameter]
+    public bool Draggable { get; set; } = true;
 
     private string Class { get; set; } = " ";
     private string Style { get; set; } = " ";
@@ -15,6 +18,13 @@
     private double Y { get; set; } = 0;
     private double pageX { get; set; } = 0;
     private double pageY { get; set; } = 0;
+
+
+    protected override void OnInitialized()
+    {
+        dragTemp.IsWeightBeingResizedChanged += OnIsWeightBeingResizedChanged;
+        base.OnInitialized();
+    }
 
     protected override void OnParametersSet()
     {
@@ -44,5 +54,15 @@
         SetClass();
         Style = $"left: {e.PageX}px; top: {e.PageY}px";
         StateHasChanged();
+    }
+
+    private void OnIsWeightBeingResizedChanged(object? sender,bool val)
+    {
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        dragTemp.IsWeightBeingResizedChanged -= OnIsWeightBeingResizedChanged;
     }
 }

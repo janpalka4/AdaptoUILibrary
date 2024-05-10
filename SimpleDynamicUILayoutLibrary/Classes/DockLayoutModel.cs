@@ -44,6 +44,7 @@ namespace AdaptoUILibrary.Classes
 
         internal void AppendChild(DockDirection direction, DockContentModel model)
         {
+            bool isThisLayoutParentOfModel = ChildLayouts.Any(x => x.ChildContent is not null && x.ChildContent.Any(y => y.GUID == model.GUID));
             if (model.Parent is not null)
             {
                 model.Parent.RemoveChild(model.GUID);
@@ -73,14 +74,19 @@ namespace AdaptoUILibrary.Classes
             DockLayoutModel layoutModel = new DockLayoutModel(DockLayoutType.FULL, new List<DockContentModel>() { model }, new List<DockLayoutModel>(), this);
             DockLayoutModel layoutOld = !divideRoot
                 ? new DockLayoutModel(DockLayoutType.FULL, ChildContent, new List<DockLayoutModel>(), this)
-                : new DockLayoutModel(DockType,null,new List<DockLayoutModel>(),this);
+                : new DockLayoutModel(DockType, null, new List<DockLayoutModel>(), this);
 
             if (divideRoot)
             {
-                foreach(DockLayoutModel dockLayoutModel in ChildLayouts)
+                if (!isThisLayoutParentOfModel)
+                    foreach (DockLayoutModel dockLayoutModel in ChildLayouts)
+                    {
+                        layoutOld.ChildLayouts.Add(new DockLayoutModel(dockLayoutModel.DockType, dockLayoutModel.ChildContent, dockLayoutModel.ChildLayouts, layoutOld));
+                    }
+                else
                 {
-                    dockLayoutModel.Parent = layoutOld;
-                    layoutOld.ChildLayouts.Add(layoutModel);
+                    DockLayoutModel tmpOld = ChildLayouts.First(x => !(x.DockType == DockLayoutType.FULL && x.ChildContent is not null && x.ChildContent.Count == 0));
+                    layoutOld = new DockLayoutModel(tmpOld.DockType, tmpOld.ChildContent, tmpOld.ChildLayouts, this);
                 }
             }
 
@@ -176,6 +182,11 @@ namespace AdaptoUILibrary.Classes
                         }
                     }
                 }
+                //foreach (DockLayoutModel dockLayoutModel in ChildLayouts)
+                //    if (dockLayoutModel.ChildLayouts.Count == 0 && (dockLayoutModel.ChildContent is null || dockLayoutModel.ChildContent.Count == 0))
+                //    {
+                //        RemoveChild(dockLayoutModel.GUID);
+                //    }
             }
 
             Parent?.CloseEmpty();

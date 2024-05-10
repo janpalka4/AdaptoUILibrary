@@ -28,7 +28,7 @@
             {
                 @if (Model.ChildContent.Count > 0)
                 {
-                    <DockContent Model="Model.ChildContent[0]" />
+                    <DockContent Model="Model.ChildContent[0]"/>
                 }
             }
         }
@@ -41,7 +41,7 @@
         }
         @if (Model.ChildLayouts.Count > 1)
         {
-            <DockHandle Parent="this" @ref="Handle" OnWeightSet="OnSetWeight" />
+            <DockHandle Parent="this" @ref="Handle" OnWeightSet="OnSetWeight"/>
             <DockLayout Model="Model.ChildLayouts[1]" DockPanel="DockPanel" Fraction="1-Weight" />
         }
     }
@@ -120,6 +120,7 @@
         this.Weight = weight;
         StateHasChanged();
     }
+
     private void OnMouseUp(MouseEventArgs e)
     {
         Handle?.OnMouseUp(e);

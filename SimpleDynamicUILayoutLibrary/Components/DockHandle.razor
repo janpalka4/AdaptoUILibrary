@@ -1,4 +1,5 @@
 ﻿@inject IElementMeasurementService measurementService
+@inject DragTemp dragTemp
 
 <div class="sdui-dock-handle" @onmousedown="OnMouseDown" @onmouseup="OnMouseUp"></div>
 
@@ -15,11 +16,14 @@
     {
         dragged = true;
         measure = Parent.Model.DockType == DockLayoutType.HORIZONTAL ? await measurementService.GetElementWidth(Parent.Container) : await measurementService.GetElementHeight(Parent.Container);
+
+        dragTemp.SetIsWeightBeingResized(true);
     }
 
     public void OnMouseUp(MouseEventArgs e)
     {
         dragged = false;
+        dragTemp.SetIsWeightBeingResized(false);
     }
 
     public async void OnMouseMove(MouseEventArgs e)
